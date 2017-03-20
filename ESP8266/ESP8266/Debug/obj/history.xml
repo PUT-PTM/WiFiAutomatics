@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m4 -mthumb -Wall -ffunction-sections -g -O0 -c -DSTM32F407VG -DSTM32F4XX -DUSE_STDPERIPH_DRIVER -D__ASSEMBLY__ -I..\..\..\workspace -I..\..\..\workspace\ESP8266\cmsis_boot -I..\..\..\workspace\ESP8266\cmsis_lib -I..\..\..\workspace\ESP8266\cmsis_lib\include -I..\..\..\workspace\ESP8266\cmsis -I..\..\..\workspace\ESP8266">
+      <target file="stm32f4xx_gpio.o" lastModified="15aeb99640b">
+         <source file="..\..\..\cmsis_lib\source\stm32f4xx_gpio.c" lastModified="15aeb880277"/>
+      </target>
+      <target file="system_stm32f4xx.o" lastModified="15aeb996481">
+         <source file="..\..\..\cmsis_boot\system_stm32f4xx.c" lastModified="15aeb91a540"/>
+      </target>
+      <target file="startup_stm32f4xx.o" lastModified="15aeb9962a5">
+         <source file="..\..\..\cmsis_boot\startup\startup_stm32f4xx.c" lastModified="15aeb8802b6"/>
+      </target>
+      <target file="stm32f4xx_usart.o" lastModified="15aeb99624d">
+         <source file="..\..\..\cmsis_lib\source\stm32f4xx_usart.c" lastModified="15aeb885bef"/>
+      </target>
+      <target file="stm32f4xx_syscfg.o" lastModified="15aeb9961cc">
+         <source file="..\..\..\cmsis_lib\source\stm32f4xx_syscfg.c" lastModified="15aeb8892bd"/>
+      </target>
+      <target file="stm32f4xx_exti.o" lastModified="15aeb9964dd">
+         <source file="..\..\..\cmsis_lib\source\stm32f4xx_exti.c" lastModified="15aeb883635"/>
+      </target>
+      <target file="main.o" lastModified="15aed9ffe71">
+         <source file="..\..\..\main.c" lastModified="15aed9ffcef"/>
+      </target>
+      <target file="stm32f4xx_rcc.o" lastModified="15aeb996396">
+         <source file="..\..\..\cmsis_lib\source\stm32f4xx_rcc.c" lastModified="15aeb8803f0"/>
+      </target>
+      <target file="misc.o" lastModified="15aeb996534">
+         <source file="..\..\..\cmsis_lib\source\misc.c" lastModified="15aeb88740b"/>
+      </target>
+   </processor>
+</history>
