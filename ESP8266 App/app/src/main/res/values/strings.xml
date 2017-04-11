@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string name="connectWiFi">Connect to WiFi</string>
+    <string name="ref">Refresh</string>
+    <string name="nr_of_wifi">Number of WiFi networks</string>
+    <string name="pswd">Password</string>
+    <string name="enter_pswd">Enter password:</string>
+    <string name="connect">Connect</string>
+    <string name="cancel">Cancel</string>
+    <string name="network">Network</string>
+    <string name="netw">Network</string>
+</resources>

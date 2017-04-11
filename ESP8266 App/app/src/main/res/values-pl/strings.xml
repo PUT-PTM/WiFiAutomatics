@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="ref">Odśwież</string>
+    <string name="edit_message">Wprowadź tekst</string>
+    <string name="connectWiFi">Połącz moduł z siecią</string>
+    <string name="button_send">Wyślij</string>
+    <string name="nr_of_wifi">Liczba dostępnych sieci</string>
+    <string name="pswd">Hasło</string>
+    <string name="enter_pswd">Wprowadź hasło:</string>
+    <string name="connect">Połącz</string>
+    <string name="cancel">Anuluj</string>
+    <string name="network">Sieć</string>
+    <string name="netw">Sieć</string>
+</resources>

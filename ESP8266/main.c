@@ -5,36 +5,32 @@
 #include "stm32f4xx_usart.h"
 #include "misc.h"
 
-uint16_t bufor;
+uint16_t buffer;
 
 void GPIOInit(void);
 void Delay_us(volatile uint32_t delay);
+void startServer(void);
 void USART3Init(void);
 void USART3_IRQHandler(void);
 void USART_Send(volatile char *c);
 
-
-
+				/* MAIN START */
 int main(void)
 {
 	SystemInit();
 	GPIOInit();
 	USART3Init();
 
-	GPIO_SetBits(GPIOD, GPIO_Pin_12);		//Relays are activated by low state
-	GPIO_SetBits(GPIOD, GPIO_Pin_13);		//
+	GPIO_SetBits(GPIOD, GPIO_Pin_12);		//Low state activates the relay
+	GPIO_SetBits(GPIOD, GPIO_Pin_13);		//			-||-
 
-	Delay_us(5000);
-	USART_Send("AT+CIPMUX=1\r\n");			//Enable multiple connections (required)
-	USART_Send("AT+CIPSERVER=1,1337\r\n");		//Start TCP server on port 1337
-	USART_Send("AT+CIPSTO=600\r\n"); 		//TCP server timeout[s]
+	startServer();
 
 	void USART3_IRQHandler(void);
 
 	while(1){}
 }
-
-
+				/* MAIN END */
 
 void GPIOInit(void)
 {
@@ -51,8 +47,16 @@ void GPIOInit(void)
 
 void Delay_us(volatile uint32_t delay)
 {
-	delay*=28;
+	delay*=24;
 	while(delay--);
+}
+
+void startServer(void)
+{
+	Delay_us(5000);
+	USART_Send("AT+CIPMUX=1\r\n");			//Enable multiple connections (required)
+	USART_Send("AT+CIPSERVER=1,1337\r\n");		//Start TCP server on port 1337
+	USART_Send("AT+CIPSTO=600\r\n"); 		//TCP server timeout[s]
 }
 
 void USART3Init(void)
@@ -97,14 +101,20 @@ void USART3_IRQHandler(void)
 {
     if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
     {
-    	bufor=USART3->DR;
-    	if (bufor == 35) //check for #
+    	buffer=USART3->DR;
+    	if (buffer == 35) //check for #
     	{
     		GPIO_ToggleBits(GPIOD, GPIO_Pin_12);
     	}
-    	if (bufor == 36) //check for $
+    	if (buffer == 36) //check for $
     	{
     	    GPIO_ToggleBits(GPIOD, GPIO_Pin_13);
+    	}
+    	if (buffer == 37) //check for %
+    	{
+    		USART_Send("AT+RST\r\n");
+    		Delay_us(1000000);
+    		startServer();
     	}
     }
 }
