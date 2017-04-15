@@ -2,7 +2,7 @@
 
 <b>Overview:</b>
 
-<b>Tools:</b> CoIDE 1.7.8
+<b>Tools:</b> CoIDE 1.7.8, Android Studio 2.3.1
 
 <b>How to run:</b>
 
