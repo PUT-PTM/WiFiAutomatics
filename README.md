@@ -1,20 +1,21 @@
 # WiFiAutomatics
 
-Overview:
+<b>Overview:</b>
 
-Tools: CoIDE 1.7.8
+<b>Tools:</b> CoIDE 1.7.8
 
-How to run:
+<b>How to run:</b>
 
-How to compile:
+<b>How to compile:</b>
 
-Future improvements:
+<b>Future improvements:</b>
 
-Attributions:
+<b>Attributions:</b>
 
-License:
+<b>License:</b>
 
-Credits:
+<b>Credits:</b>
 
 The project was conducted during the Microprocessor Lab course held by the Institute of Control and Information Engineering, Poznan University of Technology.
-Supervisor: Marek Kraft/Michał Fularz/Tomasz Mańkowski/Adam Bondyra
+
+<b>Supervisor:</b> Tomasz Mańkowski
