@@ -4,8 +4,13 @@
 #include "stm32f4xx_rcc.h"
 #include "stm32f4xx_usart.h"
 #include "misc.h"
+#include <stdio.h>
 
-uint16_t buffer;
+uint16_t buffer = {0};
+char ssid[64];
+char psswd[64];
+
+uint8_t resp = 0; //response
 
 void GPIOInit(void);
 void Delay_us(volatile uint32_t delay);
@@ -13,6 +18,8 @@ void startServer(void);
 void USART3Init(void);
 void USART3_IRQHandler(void);
 void USART_Send(volatile char *c);
+
+uint8_t usartGetChar(void);
 
 				/* MAIN START */
 int main(void)
@@ -22,13 +29,11 @@ int main(void)
 	USART3Init();
 
 	GPIO_SetBits(GPIOD, GPIO_Pin_12);		//Low state activates the relay
-	GPIO_SetBits(GPIOD, GPIO_Pin_13);		//			-||-
+	GPIO_SetBits(GPIOD, GPIO_Pin_13);		//			  -||-
 
 	startServer();
 
-	void USART3_IRQHandler(void);
-
-	while(1){}
+	while(1) {}
 }
 				/* MAIN END */
 
@@ -102,19 +107,33 @@ void USART3_IRQHandler(void)
     if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
     {
     	buffer=USART3->DR;
-    	if (buffer == 35) //check for #
+    	// activate relay #1
+    	if (buffer == 35) //check if "#"
     	{
     		GPIO_ToggleBits(GPIOD, GPIO_Pin_12);
+    		USART_Send("AT+CIPSEND=0,1\r\n");
+    		USART_Send("\n");
     	}
-    	if (buffer == 36) //check for $
+    	// activate relay #2
+    	if (buffer == 36) //check if "$"
     	{
     	    GPIO_ToggleBits(GPIOD, GPIO_Pin_13);
+    	    USART_Send("AT+CIPSEND=0,1\r\n");
+    	    USART_Send("\n");
     	}
-    	if (buffer == 37) //check for %
+    	// connect to wifi
+    	if (buffer == 94) //check if "^"
     	{
-    		USART_Send("AT+RST\r\n");
-    		Delay_us(1000000);
-    		startServer();
+    		connectToWiFi();
+    	}
+    	// check initial states of relays
+    	if (buffer == 63) // check if "?"
+    	{
+    		if (GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_12) && GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_13))
+    		{
+    			USART_Send("AT+CIPSEND=0,3\r\n");
+    			USART_Send("00\n");
+    		}
     	}
     }
 }
@@ -123,10 +142,92 @@ void USART_Send(volatile char *c)
 {
 	while(*c)
 	{
-		while(USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET);
-		USART_SendData(USART3, *c);
-		while (USART_GetFlagStatus(USART3, USART_FLAG_TC) == RESET);
-		Delay_us(500);
-		*c++;
+		if (*c != 0)
+		{
+			//while (USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET);
+			USART_SendData(USART3, *c);
+			//while (USART_GetFlagStatus(USART3, USART_FLAG_TC) == RESET);
+			Delay_us(500);
+			*c++;
+		}
 	}
+}
+
+void connectToWiFi(void)
+{
+	int i = 0;
+
+	while(1)
+	{
+	    ssid[i] = usartGetChar();
+	    if (ssid[i] == 59)
+	    {
+	    	ssid[i] = 0;
+	    	break;
+	    }
+	    i++;
+	}
+	i = 0;
+	while(1)
+	{
+	    psswd[i] = usartGetChar();
+	    if (psswd[i] == 59)
+	    {
+	    	psswd[i] = 0;
+	    	break;
+	    }
+	    i++;
+	}
+	USART_Send("AT+CWJAP_DEF=\"");
+	USART_Send(ssid);
+	USART_Send("\",\"");
+	USART_Send(psswd);
+	USART_Send("\"\r\n");
+	for (int j = 0; j < 64; j++)
+	{
+		ssid[j] = 0;
+		psswd[j] = 0;
+	}
+	i = 0;
+	resp = usartGetChar();
+	if (resp == 79) // resp == "O"?
+		{
+		USART_Send("AT+CIPSEND=0,10\r\n");
+		USART_Send("Connected\n");
+		}
+	else
+	{
+		for (i = 0; i<8; i++)
+			resp = usartGetChar();
+	}
+	switch (resp)
+	{
+	case 49:
+		USART_Send("AT+CIPSEND=0,8\r\n");
+		USART_Send("Timeout\n");
+		break;
+	case 50:
+		USART_Send("AT+CIPSEND=0,15\r\n");
+		Delay_us(5000);
+		USART_Send("Wrong password\n");
+		break;
+	case 51:
+		USART_Send("AT+CIPSEND=0,22\r\n");
+		USART_Send("Cannot find target AP\n");
+		break;
+	case 52:
+		USART_Send("AT+CIPSEND=0,18\r\n");
+		USART_Send("Connection failed\n");
+		break;
+	}
+	i = 0;
+	//resp = 0;
+}
+
+uint8_t usartGetChar(void)
+{
+    // czekaj na odebranie danych
+    while (USART_GetFlagStatus(USART3, USART_FLAG_RXNE) == RESET);
+
+    return USART_ReceiveData(USART3);
 }
