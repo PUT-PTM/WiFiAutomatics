@@ -31,16 +31,22 @@ public class WiFipassword extends AppCompatActivity {
     public void connect(View view) {
         EditText et = (EditText)findViewById(R.id.editText2);
         String pass = et.getText().toString();
-        new Client(getSSID() + ";" + pass + ";").execute();
-        if (!pass.equals("")) {
-            Toast myToast = Toast.makeText(getBaseContext(), "Połączono", Toast.LENGTH_LONG);
-            myToast.show();
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        } else {
-            Toast myToast = Toast.makeText(getBaseContext(), "Błędne hasło", Toast.LENGTH_LONG);
-            myToast.show();
-            this.recreate();
+        //new Client("^" + getSSID() + ";" + pass + ";").execute();
+        Client c = (Client) new Client("^" + getSSID() + ";" + pass + ";").execute();
+//        if (c.message_in == "OK\n") {
+        while(true)
+        {
+            if (c.message_in != null)
+                break;
         }
+        Toast myToast = Toast.makeText(getBaseContext(), c.message_in, Toast.LENGTH_LONG);
+        myToast.show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+//        } else {
+//            Toast myToast = Toast.makeText(getBaseContext(), "Błędne hasło", Toast.LENGTH_LONG);
+//            myToast.show();
+//            this.recreate();
+//        }
     }
 }
