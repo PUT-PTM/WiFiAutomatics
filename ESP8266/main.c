@@ -134,6 +134,21 @@ void USART3_IRQHandler(void)
     			USART_Send("AT+CIPSEND=0,3\r\n");
     			USART_Send("00\n");
     		}
+    		if (GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_12) && !GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_13))
+    		{
+    		    USART_Send("AT+CIPSEND=0,3\r\n");
+    			USART_Send("01\n");
+    		}
+    		if (!GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_12) && GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_13))
+    		{
+    		    USART_Send("AT+CIPSEND=0,3\r\n");
+    		    USART_Send("10\n");
+    		}
+    		if (!GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_12) && !GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_13))
+    		{
+    		    USART_Send("AT+CIPSEND=0,3\r\n");
+    		    USART_Send("11\n");
+    		}
     	}
     }
 }
@@ -156,6 +171,7 @@ void USART_Send(volatile char *c)
 void connectToWiFi(void)
 {
 	int i = 0;
+	resp = 0;
 
 	while(1)
 	{
@@ -178,6 +194,7 @@ void connectToWiFi(void)
 	    }
 	    i++;
 	}
+	USART_Send("\nAT+CWQAP\r\n");
 	USART_Send("AT+CWJAP_DEF=\"");
 	USART_Send(ssid);
 	USART_Send("\",\"");
@@ -189,15 +206,23 @@ void connectToWiFi(void)
 		psswd[j] = 0;
 	}
 	i = 0;
+	//usartGetChar();
+	usartGetChar();
 	resp = usartGetChar();
-	if (resp == 79) // resp == "O"?
+	if (resp == 87) // resp == "W"?
 		{
+		Delay_us(5000000);
 		USART_Send("AT+CIPSEND=0,10\r\n");
 		USART_Send("Connected\n");
+		Delay_us(2000000);
+		USART_Send("AT+CIPSTART=4,\"TCP\",\"195.181.209.127\",8080\r\n");
+		Delay_us(1000000);
+		USART_Send("AT+CIPSEND=4,8\r\n");
+		USART_Send("Hello!\r\n");
 		}
 	else
 	{
-		for (i = 0; i<8; i++)
+		for (i = 0; i<7; i++)
 			resp = usartGetChar();
 	}
 	switch (resp)
@@ -208,7 +233,6 @@ void connectToWiFi(void)
 		break;
 	case 50:
 		USART_Send("AT+CIPSEND=0,15\r\n");
-		Delay_us(5000);
 		USART_Send("Wrong password\n");
 		break;
 	case 51:
