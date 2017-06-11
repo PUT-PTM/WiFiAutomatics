@@ -1,8 +1,8 @@
 # WiFiAutomatics
 
-<b>Overview:</b>
+<b>Overview:</b> 
 
-<b>Tools:</b> CoIDE 1.7.8, Android Studio 2.3.1
+<b>Tools:</b> CoIDE 1.7.8, Android Studio 2.3.3
 
 <b>How to run:</b>
 
@@ -12,7 +12,7 @@
 
 <b>Attributions:</b>
 
-<b>License:</b>
+<b>License:</b> MIT
 
 <b>Credits:</b>
 
