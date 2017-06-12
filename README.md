@@ -9,6 +9,7 @@
 <b>How to run:</b>
 
 <b>How to compile:</b> 
+- Download & open project files in appropriate tool mentioned above
 
 <b>Future improvements:</b>
 - Add ability to change name of a relay buttons
