@@ -54,13 +54,6 @@ void Delay_us(volatile uint32_t delay)
 void startServer(void)
 {
 	Delay_us(5000);
-	//USART_Send("AT+CWDHCP_DEF=1,1\r\n");
-	//////////
-	//USART_Send("AT+CWMODE_DEF=3\r\n");
-
-	//Delay_us(500000);
-	//USART_Send("AT+CIPAP_DEF=\"192.168.4.1\",\"192.168.4.1\",\"255.255.255.0\"\r\n");
-	//////////
 	USART_Send("AT+CIPMUX=1\r\n");			//Enable multiple connections (required)
 	USART_Send("AT+CIPSERVER=1,1337\r\n");		//Start TCP server on port 1337
 	USART_Send("AT+CIPSTO=600\r\n"); 		//TCP server timeout[s]
