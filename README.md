@@ -1,8 +1,11 @@
 # WiFiAutomatics
 
-<b>Overview:</b> 
+<b>Overview:</b>
+Presented project is an attempt to implement simple home automation.
+It has capability of control two relays by local WIFI connection or via Internet.
 
 <b>Description:</b>
+
 
 <b>Tools:</b>
 - CoIDE 1.7.8,
