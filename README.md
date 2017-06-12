@@ -1,10 +1,10 @@
 # WiFiAutomatics
 
-<h2>Overview:</h2><br>
+<h2>Overview:</h2>
 Presented project is an attempt to implement simple home automation.
 It has capability of control two relays by android app within local WIFI connection or via Internet.
 
-<h2>Description:</h2><br>
+<h2>Description:</h2>
 
 
 <h2>Tools:</h2>
