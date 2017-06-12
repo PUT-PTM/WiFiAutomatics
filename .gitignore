@@ -38,3 +38,14 @@ captures/
 
 # Keystore files
 *.jks
+
+*.cogui
+*.comarker
+*.pbxproj
+*.bin
+*.elf
+*.hex
+*.map
+*.o
+logs/
+ESP8266/
