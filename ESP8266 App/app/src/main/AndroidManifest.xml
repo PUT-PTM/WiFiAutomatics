@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.jurekkiler.myapplication">
+    package="com.example.user.wifiautomatics">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -25,18 +25,44 @@
         </activity>
         <activity
             android:name=".DisplayWiFiActivity"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".Internet">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".Internet" />
         </activity>
         <activity
             android:name=".WiFipassword"
-            android:theme="@style/Theme.AppCompat.Dialog"
-            android:parentActivityName=".DisplayWiFiActivity">
+            android:parentActivityName=".DisplayWiFiActivity"
+            android:theme="@style/Theme.AppCompat.Dialog">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DisplayWiFiActivity" />
+                android:value="com.example.user.wifiautomatics.DisplayWiFiActivity" />
+        </activity>
+        <activity android:name=".Local"
+                  android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.user.wifiautomatics.MainActivity" />
+        </activity>
+        <activity android:name=".Internet"
+                  android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.user.wifiautomatics.MainActivity" />
+        </activity>
+        <activity android:name=".ChangeName"
+                  android:parentActivityName=".Local"
+                  android:theme="@style/Theme.AppCompat.Dialog">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.user.wifiautomatics.Local" />
+        </activity>
+        <activity android:name=".ChangeNameInt"
+                  android:parentActivityName=".Internet"
+                  android:theme="@style/Theme.AppCompat.Dialog">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.user.wifiautomatics.Internet" />
         </activity>
     </application>
 

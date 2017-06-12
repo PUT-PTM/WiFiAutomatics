@@ -6,13 +6,8 @@
 #include "misc.h"
 #include <stdio.h>
 
-uint16_t buffer = {0};
-char ssid[64];
-char psswd[64];
-
-uint8_t resp = 0; //response
-
 void GPIOInit(void);
+void connectToWiFi(void);
 void Delay_us(volatile uint32_t delay);
 void startServer(void);
 void USART3Init(void);
@@ -59,6 +54,13 @@ void Delay_us(volatile uint32_t delay)
 void startServer(void)
 {
 	Delay_us(5000);
+	//USART_Send("AT+CWDHCP_DEF=1,1\r\n");
+	//////////
+	//USART_Send("AT+CWMODE_DEF=3\r\n");
+
+	//Delay_us(500000);
+	//USART_Send("AT+CIPAP_DEF=\"192.168.4.1\",\"192.168.4.1\",\"255.255.255.0\"\r\n");
+	//////////
 	USART_Send("AT+CIPMUX=1\r\n");			//Enable multiple connections (required)
 	USART_Send("AT+CIPSERVER=1,1337\r\n");		//Start TCP server on port 1337
 	USART_Send("AT+CIPSTO=600\r\n"); 		//TCP server timeout[s]
@@ -104,31 +106,25 @@ void USART3Init(void)
 
 void USART3_IRQHandler(void)
 {
+	uint16_t buffer = {0};
+
     if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
     {
     	buffer=USART3->DR;
     	// activate relay #1
-    	if (buffer == 35) //check if "#"
+    	switch(buffer)
     	{
+    	case 35: //check if "#"
     		GPIO_ToggleBits(GPIOD, GPIO_Pin_12);
     		USART_Send("AT+CIPSEND=0,1\r\n");
     		USART_Send("\n");
-    	}
-    	// activate relay #2
-    	if (buffer == 36) //check if "$"
-    	{
-    	    GPIO_ToggleBits(GPIOD, GPIO_Pin_13);
-    	    USART_Send("AT+CIPSEND=0,1\r\n");
-    	    USART_Send("\n");
-    	}
-    	// connect to wifi
-    	if (buffer == 94) //check if "^"
-    	{
-    		connectToWiFi();
-    	}
-    	// check initial states of relays
-    	if (buffer == 63) // check if "?"
-    	{
+    		break;
+    	case 36: //check if "$"
+    		GPIO_ToggleBits(GPIOD, GPIO_Pin_13);
+    		USART_Send("AT+CIPSEND=0,1\r\n");
+    		USART_Send("\n");
+    		break;
+    	case 63: //check if "?"
     		if (GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_12) && GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_13))
     		{
     			USART_Send("AT+CIPSEND=0,3\r\n");
@@ -137,7 +133,7 @@ void USART3_IRQHandler(void)
     		if (GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_12) && !GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_13))
     		{
     		    USART_Send("AT+CIPSEND=0,3\r\n");
-    			USART_Send("01\n");
+    		    USART_Send("01\n");
     		}
     		if (!GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_12) && GPIO_ReadOutputDataBit(GPIOD, GPIO_Pin_13))
     		{
@@ -149,6 +145,10 @@ void USART3_IRQHandler(void)
     		    USART_Send("AT+CIPSEND=0,3\r\n");
     		    USART_Send("11\n");
     		}
+    		break;
+    	case 94: //check for "^"
+    		connectToWiFi();
+    		break;
     	}
     }
 }
@@ -170,8 +170,11 @@ void USART_Send(volatile char *c)
 
 void connectToWiFi(void)
 {
+	char ssid[64];
+	char psswd[64];
+
 	int i = 0;
-	resp = 0;
+	uint8_t resp = 0;
 
 	while(1)
 	{
@@ -206,10 +209,9 @@ void connectToWiFi(void)
 		psswd[j] = 0;
 	}
 	i = 0;
-	//usartGetChar();
 	usartGetChar();
 	resp = usartGetChar();
-	if (resp == 87) // resp == "W"?
+	if (resp == 87) // ESP established connection to AP
 		{
 		Delay_us(5000000);
 		USART_Send("AT+CIPSEND=0,10\r\n");
@@ -220,7 +222,7 @@ void connectToWiFi(void)
 		USART_Send("AT+CIPSEND=4,8\r\n");
 		USART_Send("Hello!\r\n");
 		}
-	else
+	else //there were some errors
 	{
 		for (i = 0; i<7; i++)
 			resp = usartGetChar();
@@ -245,7 +247,7 @@ void connectToWiFi(void)
 		break;
 	}
 	i = 0;
-	//resp = 0;
+	resp = 0;
 }
 
 uint8_t usartGetChar(void)

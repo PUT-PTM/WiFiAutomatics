@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/myConstraintLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.user.wifiautomatics.Local">
+
+    <ToggleButton
+        android:id="@+id/toggleButton3"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="16dp"
+        android:text="Relay #1"
+        android:textOff="Relay #1"
+        android:textOn="Relay #1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.501" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton4"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:text="ToggleButton"
+        android:textOff="Relay #2"
+        android:textOn="Relay #2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggleButton3"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.501" />
+
+</android.support.constraint.ConstraintLayout>

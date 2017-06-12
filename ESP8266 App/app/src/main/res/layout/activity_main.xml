@@ -5,44 +5,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jurekkiler.myapplication.MainActivity">
+    tools:context="com.example.user.wifiautomatics.MainActivity">
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:onClick="local"
+        android:text="Lokalnie"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        android:onClick="internet"
+        android:text="Internet"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:onClick="connectWifi"
-        android:text="@string/connectWiFi"
+        android:layout_marginTop="32dp"
+        android:text="Wybierz rodzaj sterowania:"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp"
-        app:layout_constraintHorizontal_bias="0.505" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ToggleButton
-        android:id="@+id/toggleButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/button"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
         android:layout_marginLeft="16dp"
-        android:text="Relay #1"
-        android:textOff="Relay #1"
-        android:textOn="Relay #1"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        android:onClick="exit"
+        android:text="Wyjście"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
-
-    <ToggleButton
-        android:id="@+id/toggleButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="ToggleButton"
-        android:textOff="Relay #2"
-        android:textOn="Relay #2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toggleButton3" />
-
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button6" />
 </android.support.constraint.ConstraintLayout>

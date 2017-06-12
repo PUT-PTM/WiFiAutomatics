@@ -1,4 +1,4 @@
-package com.example.jurekkiler.myapplication;
+package com.example.user.wifiautomatics;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,21 +32,15 @@ public class WiFipassword extends AppCompatActivity {
         EditText et = (EditText)findViewById(R.id.editText2);
         String pass = et.getText().toString();
         //new Client("^" + getSSID() + ";" + pass + ";").execute();
-        Client c = (Client) new Client("^" + getSSID() + ";" + pass + ";").execute();
-//        if (c.message_in == "OK\n") {
-        while(true)
-        {
-            if (c.message_in != null)
-                break;
-        }
+        Client c = (Client) new Client("192.168.4.1", "^" + getSSID() + ";" + pass + ";").execute();
+        while(c.message_in == null) {}
         Toast myToast = Toast.makeText(getBaseContext(), c.message_in, Toast.LENGTH_LONG);
         myToast.show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-//        } else {
-//            Toast myToast = Toast.makeText(getBaseContext(), "Błędne hasło", Toast.LENGTH_LONG);
-//            myToast.show();
-//            this.recreate();
-//        }
+        if (c.message_in.equals("Connected")) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            this.recreate();
+        }
     }
 }

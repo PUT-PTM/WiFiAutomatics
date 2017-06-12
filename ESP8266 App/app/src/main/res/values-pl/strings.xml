@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">WiFi Automatics</string>
     <string name="ref">Odśwież</string>
     <string name="edit_message">Wprowadź tekst</string>
     <string name="connectWiFi">Połącz moduł z siecią</string>
@@ -12,4 +12,5 @@
     <string name="cancel">Anuluj</string>
     <string name="network">Sieć</string>
     <string name="netw">Sieć</string>
+    <string name="chooseText">Wybierz jak chcesz sterować:</string>
 </resources>

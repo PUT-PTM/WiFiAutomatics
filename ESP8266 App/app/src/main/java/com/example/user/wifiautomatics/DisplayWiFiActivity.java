@@ -1,4 +1,4 @@
-package com.example.jurekkiler.myapplication;
+package com.example.user.wifiautomatics;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -66,10 +66,11 @@ public class DisplayWiFiActivity extends AppCompatActivity {
             sb.append(getResources().getString(R.string.nr_of_wifi)).append(": ").append(scanList.size()).append("\n");
             lista.clear();
             for (int i = 0; i < scanList.size(); i++)
-                lista.add(scanList.get(i).SSID);
+            {
+                if (!lista.contains(scanList.get(i).SSID))
+                    lista.add(scanList.get(i).SSID);
+            }
             tv.setText(sb);
-            lv.addHeaderView(mTop);
-            lv.addFooterView(mTop);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(DisplayWiFiActivity.this,
                     android.R.layout.simple_list_item_1,
                     android.R.id.text1,
@@ -78,7 +79,7 @@ public class DisplayWiFiActivity extends AppCompatActivity {
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(DisplayWiFiActivity.this, WiFipassword.class);
-                    intent.putExtra("ssid", lista.get(position-1));
+                    intent.putExtra("ssid", lista.get(position));
                     startActivity(intent);
                 }
             });

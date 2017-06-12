@@ -7,7 +7,7 @@
     android:layout_centerInParent="true"
     android:maxHeight="350dp"
     android:maxWidth="500dp"
-    tools:context="com.example.user.wifiautomatics.WiFipassword">
+    tools:context="com.example.user.wifiautomatics.ChangeName">
 
     <TableLayout
         android:layout_width="0dp"
@@ -25,39 +25,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp" >
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/enter_pswd" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
             <EditText
                 android:id="@+id/editText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/pswd"
-                android:inputType="textPassword" />
+                android:hint="Podaj nową nazwę"
+                android:inputType="text" />
         </TableRow>
 
         <TableRow
@@ -70,8 +45,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
-                android:onClick="connect"
-                android:text="@string/connect" />
+                android:onClick="ok"
+                android:text="ZATWIERDŹ" />
 
             <Button
                 android:id="@+id/button4"

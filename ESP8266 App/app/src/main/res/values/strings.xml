@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">WiFi Automatics</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
     <string name="connectWiFi">Connect to WiFi</string>
@@ -11,4 +11,5 @@
     <string name="cancel">Cancel</string>
     <string name="network">Network</string>
     <string name="netw">Network</string>
+    <string name="chooseText">Wybierz jak chcesz sterować:</string>
 </resources>

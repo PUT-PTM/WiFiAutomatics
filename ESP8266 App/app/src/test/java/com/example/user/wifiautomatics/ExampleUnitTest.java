@@ -1,4 +1,4 @@
-package com.example.jurekkiler.myapplication;
+package com.example.user.wifiautomatics;
 
 import org.junit.Test;
 
