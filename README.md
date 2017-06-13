@@ -15,17 +15,17 @@ The base of my project is microcontroller STM32F407VG DISCOVERY and ESP8266 WIFI
 
 <h2>How to run:</h2>
 
-<b>Connections:</b>
-Relay IN1 -> STM32 PD12
-Relay IN2 -> STM32 PD13
-Relay VCC -> STM32 5V
-Relay GND -> STM32 GND
-
-ESP8266 Rx -> STM32 PC10
-ESP8266 Tx -> STM32 PC11
-ESP8266 CH_PD -> STM32 3V
-ESP8266 VCC -> STM32 3V
-ESP8266 GND -> STM32 GND
+<b>Connections:</b><br>
+Relay IN1 -> STM32 PD12<br>
+Relay IN2 -> STM32 PD13<br>
+Relay VCC -> STM32 5V<br>
+Relay GND -> STM32 GND<br>
+<br>
+ESP8266 Rx -> STM32 PC10<br>
+ESP8266 Tx -> STM32 PC11<br>
+ESP8266 CH_PD -> STM32 3V<br>
+ESP8266 VCC -> STM32 3V<br>
+ESP8266 GND -> STM32 GND<br>
 
 - Android: Plug your Android device to a USB port and click <i>Run 'app'</i> in Android Studio
 - STM32: Plug your STM32 to USB port and click <i>Download Code To Flash</i> in CoIDE 1.7.8
