@@ -5,8 +5,10 @@ Presented project is an attempt to implement simple home automation.
 It has capability of control two relays by android app within local WIFI connection or via Internet.
 
 <h2>Description:</h2>
-The base of my project is microcontroller STM32F407VG DISCOVERY and ESP8266 WIFI module.
-
+The base of my project is microcontroller STM32F407VG DISCOVERY and ESP8266 WIFI module.<br>
+Whole project contains an Android application programmed in Java language and a program for STM32 in C language.<br>
+Communication between ESP8266 and STM32 is accomplished with USART.<br>
+STM32 parsing AT commands and committing appropriate actions.
 
 <h2>Tools:</h2>
 
